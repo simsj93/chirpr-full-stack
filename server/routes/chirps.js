@@ -57,7 +57,7 @@ router.put('/:id', async (req, res) => {
     const content = req.body; 
 
     try { res.json (await db.Chirps.update(content, id));
-        console.log('chirp updated');
+        console.log(res);
     } catch (e) {
         res.send(e);
     }

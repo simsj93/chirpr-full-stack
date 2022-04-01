@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-// import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import ChirpCard from "./components/ChirpCard.jsx";
@@ -19,15 +18,27 @@ const App = () => {
       method: 'DELETE'
     });
     getChirps();
-  }
+  }; 
+
+  
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleMessageChange = (e) => setMessage(e.target.value);
   const handleChirpSubmit = (e) => {
     e.preventDefault();
-
     postChirp();
-
   };
+
+const handleEditChirp = (id) => {
+    const userData = 
+    fetch(`http://localhost:3000/api/chirps/${id}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+  }
+    
 
   const getChirps = () => {
     fetch('http://localhost:3000/api/chirps/')
@@ -106,6 +117,7 @@ const App = () => {
                 location={chirp.location}
                 id={chirp.id}
                 handleDeleteChirp={handleDeleteChirp}
+                handleEditChirp={handleEditChirp}
               />
             ))}
           </div>
